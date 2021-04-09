@@ -21,6 +21,7 @@ int main(void) {
 	lightDetected = PINA & 0x02;
 	doorOpen = PINA & 0x01;
 	if (!lightDetected && doorOpen) PORTB = 0x01;
+	else PORTB = 0x00;
     }
     return 0;
 }
