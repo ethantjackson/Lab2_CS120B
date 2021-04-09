@@ -1,10 +1,11 @@
-/*	Name & E-mail: Ethan Jackson ejack023@ucr.edu
- *	Lab Section: 023
- *	Assignment: Lab 2  Exercise 4
+/*	Author: ejack023
+ *  Partner(s) Name: 
+ *	Lab Section:
+ *	Assignment: Lab #  Exercise #
  *	Exercise Description: [optional - include for your own benefit]
- *	
- *	I acknowledge all content contained herein, excluding template 
- * 	or example code, is my own original work.
+ *
+ *	I acknowledge all content contained herein, excluding template or example
+ *	code, is my own original work.
  */
 #include <avr/io.h>
 #ifdef _SIMULATE_
@@ -29,7 +30,7 @@ int main(void) {
 	else PORTD = PORTD & 0xFE;
 	if (aWeight-cWeight > 80 || aWeight-cWeight < -80) PORTD = PORTD | 0x02;
 	else PORTD = PORTD & 0xFD;
-	PORTD = (PORTD & 0x03) | (totWeight & 0xFC);
+	PORTD = (PORTD & 0x03) | ((totWeight>>2) & 0xFC);
     }
     return 0;
 }
