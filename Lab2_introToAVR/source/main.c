@@ -30,7 +30,7 @@ int main(void) {
 	else PORTD = PORTD & 0xFE;
 	if (aWeight-cWeight > 80 || aWeight-cWeight < -80) PORTD = PORTD | 0x02;
 	else PORTD = PORTD & 0xFD;
-	PORTD = (PORTD & 0x03) | (totWeight & 0xFC);
+	PORTD = (PORTD & 0x03) | ((totWeight>>2) & 0xFC);
     }
     return 0;
 }

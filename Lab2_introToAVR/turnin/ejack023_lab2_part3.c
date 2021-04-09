@@ -14,17 +14,23 @@
 
 int main(void) {
 	DDRA = 0x00; PORTA = 0xFF; // A is input, writes 0xFF to A
-	DDRC = 0xFF; PORTC = 0x00; // B is output, initialize B to 0x00
-	unsigned char cntavail = 0x00;
+	DDRB = 0x00; PORTB = 0xFF;
+	DDRC = 0x00; PORTC = 0xFF;
+	DDRD = 0xFF; PORTD = 0x00; // B is output, initialize B to 0x00
+	unsigned char aWeight = 0x00;
+	unsigned char bWeight = 0x00;
+	unsigned char cWeight = 0x00;
+	unsigned short totWeight = 0x00;
     while (1) {
-	cntavail = 0x00;
-	if (!(PINA & 0x08)) ++cntavail;
-	if (!(PINA & 0x04)) ++cntavail; 	
-	if (!(PINA & 0x02)) ++cntavail; 	
-	if (!(PINA & 0x01)) ++cntavail; 	
-	PORTC = (PORTC & 0xF0) | cntavail;
-	if (cntavail == 0) PORTC = PORTC | 0x80;
-	else PORTC = PORTC & 0x7F;
+	aWeight = PINA;
+	bWeight = PINB;
+	cWeight = PINC;
+	totWeight = aWeight + bWeight + cWeight;
+	if (totWeight > 140) PORTD = PORTD | 0x01;
+	else PORTD = PORTD & 0xFE;
+	if (aWeight-cWeight > 80 || aWeight-cWeight < -80) PORTD = PORTD | 0x02;
+	else PORTD = PORTD & 0xFD;
+	PORTD = (PORTD & 0x03) | ((totWeight>>2) & 0xFC);
     }
     return 0;
 }
